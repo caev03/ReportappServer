@@ -1,5 +1,5 @@
 {
-  "name": "report_app_server",
+  "name": "ReportappServer",
   "version": "1.0.0",
   "description": "Server for reportapp",
   "main": "index.js",
@@ -11,6 +11,8 @@
   "dependencies": {
     "express": "^4.13.4",
     "socket.io": "^1.4.5",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "method-override": "^2.1.2",
+    "body-parser": "^1.5.1"
   }
 }
