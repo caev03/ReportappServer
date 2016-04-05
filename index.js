@@ -9,6 +9,7 @@ var express  = require("express"),
     bodyParser = require("body-parser");
     methodOverride = require("method-override");
     require("./models/reporte.js");
+    require("./models/implemento.js");
 
 
 
@@ -20,8 +21,9 @@ app.get('/', function(req, res) {
     res.send("Hello World!");
 });
 
-controller = require("./controllers/reportes")(app);
-mongoose.connect('mongodb://localhost/reportes');
+reportes = require("./controllers/reportes")(app);
+implementos = require("./controllers/implementos")(app);
+mongoose.connect('mongodb://localhost/');
 
 app.listen(3000, function() {
     console.log("Node server running on http://localhost:3000");

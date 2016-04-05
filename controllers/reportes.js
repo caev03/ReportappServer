@@ -1,11 +1,10 @@
 /**
  * Created by caev03 on 3/27/16.
  */
-//File: controllers/tvshows.js
 module.exports = function (app) {
 
     var Reporte = require("../models/reporte.js");
-//GET - Return all tvshows in the DB
+    
     findAllReportes = function (req, res) {
         Reporte.find(function (err, reporte) {
             if (err) res.send(500, err.message);
@@ -15,17 +14,15 @@ module.exports = function (app) {
         });
     };
 
-//GET - Return a TVShow with specified ID
     findById = function (req, res) {
         Reporte.findById(req.params.id, function (err, reporte) {
             if (err) return res.send(500, err.message);
 
             console.log('GET /reportes/' + req.params.id);
-            res.status(200).jsonp(reportes);
+            res.status(200).jsonp(reporte);
         });
     };
 
-//POST - Insert a new TVShow in the DB
     addReporte = function (req, res) {
         console.log('POST');
         console.log(req.body);
@@ -40,7 +37,6 @@ module.exports = function (app) {
         });
     };
 
-//PUT - Update a register already exists
     updateReporte = function (req, res) {
         reporte.findById(req.params.id, function (err, reporte) {
             reporte.title = req.body.title;
@@ -52,7 +48,6 @@ module.exports = function (app) {
         });
     };
 
-//DELETE - Delete a TVShow with specified ID
     deleteReporte = function (req, res) {
         reporte.findById(req.params.id, function (err, reporte) {
             reporte.remove(function (err) {
