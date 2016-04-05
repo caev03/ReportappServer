@@ -8,7 +8,10 @@ var implementoSchema = new Schema({
     barcodeId:    { type: String },
     tipoImplemento: {type: String},
     estado: {type: Boolean},
-    guardiaId: {type:String}
+    guardiaId: {type:String},
+    descripcion: {type:String}
 });
 
 module.exports = mongoose.model('Implemento', implementoSchema);
+
+

@@ -23,6 +23,7 @@ app.get('/', function(req, res) {
 
 reportes = require("./controllers/reportes")(app);
 implementos = require("./controllers/implementos")(app);
+guardias = require("./controllers/guardias")(app);
 mongoose.connect('mongodb://localhost/');
 
 app.listen(3000, function() {

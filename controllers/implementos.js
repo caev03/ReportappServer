@@ -31,7 +31,8 @@ module.exports = function (app) {
             barcodeId: req.body.barcodeId,
             tipoImplemento: req.body.tipoImplemento,
             estado: req.body.estado,
-            guardiaId: req.body.guardiaId
+            guardiaId: req.body.guardiaId,
+            descripcion: req.body.descripcion
         });
 
         implemento.save(function (err, implemento) {
@@ -47,6 +48,7 @@ module.exports = function (app) {
             implemento.tipoImplemento = req.body.tipoImplemento;
             implemento.estado = req.body.estado;
             implemento.guardiaId = req.body.guardiaId;
+            implemento.descripcion = req.body.descripcion;
 
             implemento.save(function (err) {
                 if (err) return res.status(500).send(err.message);
