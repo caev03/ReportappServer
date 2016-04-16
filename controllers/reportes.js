@@ -4,6 +4,18 @@
 module.exports = function (app) {
 
     var Reporte = require("../models/reporte.js");
+
+    addPicture = function(){
+            reporte.findById(req.params.id, function (err, reporte) {
+            //Necesita cambios para que sea un archivo.
+            reporte.title = req.body.title;
+
+            reporte.save(function (err) {
+                if (err) return res.status(500).send(err.message);
+                res.status(200).jsonp(reporte);
+            });
+        });
+    };
     
     findAllReportes = function (req, res) {
         Reporte.find(function (err, reporte) {
@@ -24,11 +36,13 @@ module.exports = function (app) {
     };
 
     addReporte = function (req, res) {
-        console.log('POST');
+        console.log('POST /reportes addReporte');
         console.log(req.body);
 
         var reporte = new Reporte({
-            message: req.body.title
+            id: req.body.id,
+            identificador: req.body.identificador,
+            message: req.body.message
         });
 
         reporte.save(function (err, reporte) {
@@ -63,4 +77,6 @@ module.exports = function (app) {
     app.post('/reportes', addReporte);
     app.put('/reportes/:id', updateReporte);
     app.delete('/reportes/:id', deleteReporte);
+    //test
+    app.post('/reportes/:id/add', addPicture);
 }

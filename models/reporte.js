@@ -5,6 +5,8 @@ var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
 var reporteSchema = new Schema({
+	id: { type: String },
+	identificador: { type: String},
     message:    { type: String }
 });
 

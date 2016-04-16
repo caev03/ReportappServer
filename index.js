@@ -8,6 +8,8 @@ var express  = require("express"),
     mongoose = require('mongoose');
     bodyParser = require("body-parser");
     methodOverride = require("method-override");
+    multipart = require('connect-multiparty');
+    multipartMiddleware = multipart({ uploadDir: 'C:/Users/Usuario Autorizado/Documents/ReportAppFiles'});
     require("./models/reporte.js");
     require("./models/implemento.js");
 
@@ -15,10 +17,20 @@ var express  = require("express"),
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(methodOverride());
+
 
 app.get('/', function(req, res) {
     res.send("Hello World!");
+});
+
+app.post('/upload', multipartMiddleware, function(req, res){
+	console.log("/POST-upload");
+	//var file = req.files.file;
+	//console.log(file.name);
+	//console.log(file.type);
+	res.status(200).send('OK');
 });
 
 reportes = require("./controllers/reportes")(app);
