@@ -28,11 +28,12 @@ module.exports = function (app) {
 
 
     getAllTags = function (req, res) {
-        Reporte.find(function (err, reporte) {
+        query = {};
+        Reporte.find(query, 'identificador',function (err, reporte) {
             if (err) res.send(500, err.message);
 
             console.log('GET /reportesIdentificador')
-            res.status(200).jsonp({ident : reporte.identificador});
+            res.status(200).jsonp(reporte);
         });
     };
 
