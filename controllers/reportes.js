@@ -38,7 +38,8 @@ module.exports = function (app) {
     };
 
     findById = function (req, res) {
-        Reporte.findById(req.params.id, function (err, reporte) {
+        query = {'identificador' : req.params.id};
+        Reporte.find(query, function (err, reporte) {
             if (err) return res.send(500, err.message);
 
             console.log('GET /reportes/' + req.params.id);
