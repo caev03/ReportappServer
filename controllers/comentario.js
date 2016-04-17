@@ -16,7 +16,7 @@ module.exports = function (app) {
     //Findbyone
 
     findById = function (req, res) {
-        Guardia.findById(req.params.id, function (err, guardia) {
+        Comentario.findById(req.params.id, function (err, guardia) {
             if (err) return res.send(500, err.message);
 
             console.log('GET /guardias/' + req.params.id);
@@ -43,6 +43,6 @@ module.exports = function (app) {
 //Link routes and functions
     app.get('/comentarios', findAllComments);
     app.get('/comentarios/:id', findById);
-    app.post('/comentarios', addGuardia);
+    app.post('/comentarios', addComment);
 
 }
