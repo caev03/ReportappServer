@@ -14,6 +14,18 @@ module.exports = function (app) {
         });
     };
 
+
+
+    getCedulas = function (req, res) {
+        query ={};
+        Guardia.find(query, 'cedula', function (err, guardia) {
+            if (err) res.send(500, err.message);
+
+            console.log('GET /guardias-cedula')
+            res.status(200).jsonp(guardia);
+        });
+    };
+
     findById = function (req, res) {
         Guardia.findById(req.params.id, function (err, guardia) {
             if (err) return res.send(500, err.message);
@@ -69,4 +81,5 @@ module.exports = function (app) {
     app.post('/guardias', addGuardia);
     app.put('/guardias/:id', updateGuardia);
     app.delete('/guardias/:id', deleteGuardia);
+    app.get('/guardiasList', getCedulas);
 }
