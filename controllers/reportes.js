@@ -26,6 +26,16 @@ module.exports = function (app) {
         });
     };
 
+
+    getAllTags = function (req, res) {
+        Reporte.find(function (err, reporte) {
+            if (err) res.send(500, err.message);
+
+            console.log('GET /reportesIdentificador')
+            res.status(200).jsonp({ident : reporte.identificador});
+        });
+    };
+
     findById = function (req, res) {
         Reporte.findById(req.params.id, function (err, reporte) {
             if (err) return res.send(500, err.message);
@@ -78,5 +88,6 @@ module.exports = function (app) {
     app.put('/reportes/:id', updateReporte);
     app.delete('/reportes/:id', deleteReporte);
     //test
+    app.get('/reportesList', getAllTags);
     app.post('/reportes/:id/add', addPicture);
 }
