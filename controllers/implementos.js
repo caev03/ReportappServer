@@ -70,7 +70,7 @@ module.exports = function (app) {
 
 //Link routes and functions
     app.get('/implementos', findAllImplementos);
-    app.get('/implementos/:id/:user', findById);
+    app.get('/implementos/:id', findById);
     app.post('/implementos', addImplemento);
     app.put('/implementos/:id', updateImplemento);
     app.delete('/implementos/:id', deleteImplemento);
