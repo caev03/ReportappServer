@@ -62,6 +62,15 @@ app.get('/downloado/:id/:num', function(req, res) {
 
         }
     }
+
+    for(var j in files){
+        var nameo = files[j];
+        var  arr;
+        if(nameo.indexOf('ReporAppFiles')<0){
+           files.splice(j,1);
+           j--;
+        }
+    }
     
     //File send
     var numeron = parseInt(req.params.num);
