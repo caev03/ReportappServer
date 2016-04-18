@@ -11,7 +11,7 @@ var express  = require("express"),
     bodyParser = require("body-parser");
     methodOverride = require("method-override");
     multipart = require('connect-multiparty');
-    multipartMiddleware = multipart({ uploadDir: 'C:/Users/Usuario Autorizado/Documents/ReportAppFiles'});
+    multipartMiddleware = multipart({ uploadDir: '/home/juanjorogo/ReportAppFiles'});
     require("./models/reporte.js");
     require("./models/implemento.js");
     require("./models/comentario.js");
@@ -45,32 +45,29 @@ app.get('/download', function(req, res) {
 });
 
 app.get('/downloado/:id/:num', function(req, res) {
-    //var path = '/home/juanjorogo/ReportAppFiles';
-    var path = 'C:/Users/Usuario Autorizado/Documents/ReportAppFiles';
+    var path = '/home/juanjorogo/ReportAppFiles';
+    //var path = 'C:/Users/Usuario Autorizado/Documents/ReportAppFiles';
 
     files = [];
     var files = fileSystem.readdirSync(path);
-    for (var i in files){
-        var name = path + '/' + files[i];
+    console.log(files);
+
+    
+    i = files.length;
+    while (i--) {
+          var name = path + '/' + files[i];
         if (fileSystem.statSync(name).isDirectory()){
             //do nothing dis code sucks lel
-        } else {
-            var nom = req.params.id;
-            if(name.indexOf(nom)>-1){
-                files.push(name);
-            }
-
         }
-    }
 
-    for(var j in files){
-        var nameo = files[j];
-        var  arr;
-        if(nameo.indexOf('ReporAppFiles')<0){
-           files.splice(j,1);
-           j--;
+        if(files[i].regexIndexOf(req.params.id+'_') <0){
+            console.log("Borrando:"+files[i]+"puesto que no contiene "+req.params.id );
+            files.splice(i,1);
+            
         }
-    }
+     }
+    
+    console.log(files);
     
     //File send
     var numeron = parseInt(req.params.num);
