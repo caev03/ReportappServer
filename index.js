@@ -44,6 +44,42 @@ app.get('/download', function(req, res) {
     
 });
 
+app.get('/downloado/:id/:num', function(req, res) {
+    //var path = '/home/juanjorogo/ReportAppFiles';
+    var path = 'C:/Users/Usuario Autorizado/Documents/ReportAppFiles';
+
+    files = [];
+    var files = fileSystem.readdirSync(path);
+    for (var i in files){
+        var name = path + '/' + files[i];
+        if (fileSystem.statSync(name).isDirectory()){
+            //do nothing dis code sucks lel
+        } else {
+            var nom = req.params.id;
+            if(name.indexOf(nom)>-1){
+                files.push(name);
+            }
+
+        }
+    }
+    
+    //File send
+    var numeron = parseInt(req.params.num);
+
+    var stat = fileSystem.statSync(path+'/'+files[numeron-1].replace(/\\/g, '/'));
+
+    res.writeHead(200, {
+        'Content-Type': 'image/jpeg',
+        'Content-Length': stat.size
+    });
+
+    var readStream = fileSystem.createReadStream(path+'/'+files[numeron-1].replace(/\\/g, '/'));
+    // We replaced all the event handlers with a simple call to readStream.pipe()
+    readStream.pipe(res);
+
+    
+});
+
 app.post('/upload', multipartMiddleware, function(req, res){
 	console.log("/POST-upload");
 	//var file = req.files.file;

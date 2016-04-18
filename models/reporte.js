@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
 var reporteSchema = new Schema({
 	id: { type: String },
 	identificador: { type: String},
-    message:    { type: String }
+    message:    { type: String },
+    numImages: {type:String}
 });
 
 module.exports = mongoose.model('Reporte', reporteSchema);

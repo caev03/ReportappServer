@@ -39,7 +39,7 @@ module.exports = function (app) {
 
     findById = function (req, res) {
         query = {'identificador' : req.params.id};
-        Reporte.find(query, 'identificador message', function (err, reporte) {
+        Reporte.find(query, 'identificador message numImages', function (err, reporte) {
             if (err) return res.send(500, err.message);
 
             console.log('GET /reportes/' + req.params.id);
@@ -54,7 +54,8 @@ module.exports = function (app) {
         var reporte = new Reporte({
             id: req.body.id,
             identificador: req.body.identificador,
-            message: req.body.message
+            message: req.body.message,
+            numImages : req.body.numImages
         });
 
         reporte.save(function (err, reporte) {
