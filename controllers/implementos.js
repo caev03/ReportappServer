@@ -15,12 +15,17 @@ module.exports = function (app) {
 
 //GET - Return a TVShow with specified ID
     findById = function (req, res) {
-        Implemento.findById(req.params.id, function (err, implemento) {
-            if (err) return res.send(500, err.message);
+        query = {'barcodeId' : req.params.id};
+        implemento.findById(query, function (err, implemento) {
+            implemento.estado = !implemento.estado;
+            implemento.guardiaId = req.params.user;
 
-            console.log('GET /implementos/' + req.params.id);
-            res.status(200).jsonp(implemento);
+            implemento.save(function (err) {
+                if (err) return res.status(200).send(err.message);
+                res.status(200).jsonp(implemento);
+            });
         });
+
     };
 
     addImplemento = function (req, res) {
@@ -68,7 +73,7 @@ module.exports = function (app) {
 
 //Link routes and functions
     app.get('/implementos', findAllImplementos);
-    app.get('/implementos/:id', findById);
+    app.get('/implementos/:id/:user', findById);
     app.post('/implementos', addImplemento);
     app.put('/implementos/:id', updateImplemento);
     app.delete('/implementos/:id', deleteImplemento);
