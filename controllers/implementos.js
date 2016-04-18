@@ -16,14 +16,11 @@ module.exports = function (app) {
 //GET - Return a TVShow with specified ID
     findById = function (req, res) {
         query = {'barcodeId' : req.params.id};
-        implemento.findById(query, function (err, implemento) {
-            implemento.estado = !implemento.estado;
-            implemento.guardiaId = req.params.user;
+        Implemento.find(query, function (err, implemento) {
+            if (err) res.send(500, err.message);
 
-            implemento.save(function (err) {
-                if (err) return res.status(200).send(err.message);
-                res.status(200).jsonp(implemento);
-            });
+            console.log('GET /implementos')
+            res.status(200).jsonp(implemento);
         });
 
     };
