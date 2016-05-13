@@ -13,7 +13,6 @@ module.exports = function (app) {
         });
     };
 
-//GET - Return a TVShow with specified ID
     findById = function (req, res) {
         query = {'barcodeId' : req.params.id};
         Implemento.find(query, function (err, implemento) {

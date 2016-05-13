@@ -15,6 +15,7 @@ var express  = require("express"),
     require("./models/reporte.js");
     require("./models/implemento.js");
     require("./models/comentario.js");
+    require("./models/seguimientoGuardia");
 
 
 
@@ -96,6 +97,7 @@ reportes = require("./controllers/reportes")(app);
 implementos = require("./controllers/implementos")(app);
 guardias = require("./controllers/guardias")(app);
 comentarios = require("./controllers/comentario")(app);
+seguimientoGuardias = require("./controllers/seguimientoGuardias")(app);
 mongoose.connect('mongodb://localhost/');
 
 app.listen(3000, function() {
