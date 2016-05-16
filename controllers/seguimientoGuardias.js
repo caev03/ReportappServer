@@ -42,20 +42,24 @@ module.exports = function (app) {
             res.status(200).jsonp(seguimientoGuardia);
         });
     };
-
-    allMighty = function (req, res) {
+    updateSeguimiento = function (req, res)
+    {
         var params = req.params.parameters.split("-");
-        var today = new Date();
-        var todayMilis = today.getTime();
-        query = {'macAddress' : params[0], "idGuardia": params[1], "ultimaOcurrencia":{$elemMatch: {'$lt':todayMilis}} };
-        console.log(query);
-        resp = SeguimientoGuardia.find(query, function (err, seguimientoGuardia) {
-            if (err) res.send(500, err.message);
-            res.status(200).jsonp(seguimientoGuardia);
+        query = {'macAddress' : params[0], "idGuardia": params[1], "ultimaOcurrencia": params[2]};
+        SeguimientoGuardia.find(query, function (err, seguimiento)
+        {
+            seguimiento[0].ultimaOcurrencia = req.body.ultimaOcurrencia;
+
+
+            seguimiento[0].save(function (err) {
+                if (err) return res.status(500).send(err.message);
+                res.status(200).jsonp(seguimiento[0]);
+            });
         });
     };
+
     app.get('/segGuar', findAllOcurrencias);
     app.get('/segGuar/:parameters', findOcurrencia);
     app.post('/segGuar', addOcurrencia);
-    app.get('/segGuard/:parameters',allMighty);
+    app.put('/segGuar/:parameters', updateSeguimiento);
 }
